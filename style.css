@@ -1,0 +1,166 @@
+:root {
+  --bg: #eef2f4;
+  --surface: #ffffff;
+  --ink: #14232b;
+  --muted: #55666f;
+  --line: #cfd9de;
+  --accent: #0f6e73;
+  --accent-ink: #ffffff;
+  --open: #c2410c;
+  --max: 56rem;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a20;
+  --surface: #16252d;
+  --ink: #e6eef1;
+  --muted: #94a8b2;
+  --line: #2a3d47;
+  --accent: #4fc3c8;
+  --accent-ink: #0f1a20;
+  --open: #fb923c;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a20;
+    --surface: #16252d;
+    --ink: #e6eef1;
+    --muted: #94a8b2;
+    --line: #2a3d47;
+    --accent: #4fc3c8;
+    --accent-ink: #0f1a20;
+    --open: #fb923c;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+h1, h2, h3 { font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; line-height: 1.15; margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.skip { position: absolute; left: -999px; top: 0; background: var(--accent); color: var(--accent-ink); padding: .5rem 1rem; z-index: 20; }
+.skip:focus { left: 0; }
+
+.top {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 1rem;
+  padding: .75rem max(1.25rem, calc((100% - var(--max)) / 2));
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.mark {
+  font: 700 1rem "Bricolage Grotesque", sans-serif;
+  background: var(--accent); color: var(--accent-ink);
+  padding: .25rem .55rem; border-radius: .35rem;
+}
+.top nav { display: flex; gap: 1.1rem; margin-left: auto; flex-wrap: wrap; }
+.top nav a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.top nav a:hover { color: var(--accent); }
+#theme, #toggleAll {
+  font: 600 .9rem "Source Sans 3", sans-serif;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line); border-radius: .4rem;
+  padding: .35rem .75rem; cursor: pointer;
+}
+#theme:hover, #toggleAll:hover { border-color: var(--accent); color: var(--accent); }
+
+main, footer { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem; }
+
+.hero { padding: 4.5rem 0 3rem; }
+.role { margin: 0 0 .75rem; color: var(--accent); font-weight: 600; }
+h1 { font-size: clamp(2.8rem, 9vw, 5.5rem); font-weight: 700; letter-spacing: -.02em; }
+.lede { max-width: 38rem; font-size: 1.25rem; margin: 1.25rem 0 1.75rem; }
+.actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-block; text-decoration: none; font-weight: 600;
+  background: var(--accent); color: var(--accent-ink);
+  border: 2px solid var(--accent); border-radius: .4rem;
+  padding: .6rem 1.2rem;
+}
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.1); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; margin: 2.5rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.facts dt { color: var(--muted); font-size: .9rem; }
+.facts dd { margin: 0; font-weight: 600; }
+
+.block { padding: 2.5rem 0; border-top: 1px solid var(--line); }
+.block h2 { font-size: 1.9rem; margin-bottom: 1rem; }
+.block h3 { font-size: 1.05rem; margin: 1.25rem 0 .5rem; }
+.block p { max-width: 42rem; }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.head h2 { margin-bottom: 0; }
+.hint { color: var(--muted); margin: .5rem 0 1.25rem; }
+
+/* tickets */
+.ticket {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--line);
+  border-radius: .5rem;
+  margin-bottom: .85rem;
+}
+.ticket[open] { border-left-color: var(--accent); }
+.ticket summary {
+  display: grid; grid-template-columns: auto 1fr auto; gap: .5rem 1rem; align-items: center;
+  padding: 1rem 1.15rem; cursor: pointer; list-style: none;
+}
+.ticket summary::-webkit-details-marker { display: none; }
+.ticket summary::after {
+  content: "+"; grid-column: 4; grid-row: 1;
+  font: 600 1.4rem/1 "Bricolage Grotesque", sans-serif; color: var(--muted);
+}
+.ticket[open] summary::after { content: "\2212"; }
+.title { font: 700 1.1rem/1.25 "Bricolage Grotesque", sans-serif; display: block; }
+.org { display: block; font: 400 1rem "Source Sans 3", sans-serif; color: var(--muted); margin-top: .15rem; }
+.when { color: var(--muted); font-size: .95rem; white-space: nowrap; }
+.status {
+  font-size: .85rem; font-weight: 600; padding: .15rem .6rem; border-radius: 99px;
+  border: 1px solid var(--line); color: var(--muted); white-space: nowrap;
+}
+.status.current { border-color: var(--open); color: var(--open); }
+.ticket ul, .ticket h3 { margin-left: 1.15rem; margin-right: 1.15rem; }
+.ticket ul { padding-left: 1.1rem; margin-top: 0; margin-bottom: 1rem; }
+.ticket li { margin-bottom: .45rem; max-width: 46rem; }
+.ticket .wins { margin-bottom: 1.25rem; }
+.ticket h3 { margin-top: .5rem; color: var(--accent); }
+
+/* skills */
+.skillgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.5rem; }
+.skillgrid h3 { margin-top: 0; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+.chips li { background: var(--surface); border: 1px solid var(--line); border-radius: .4rem; padding: .25rem .65rem; font-size: .95rem; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 2rem; }
+.cols h3 { margin-top: 0; }
+.plain { list-style: none; margin: 0; padding: 0; }
+.plain li { margin-bottom: .4rem; }
+.note { color: var(--muted); margin-top: 1rem; }
+
+footer { padding: 2rem 1.25rem 3rem; color: var(--muted); border-top: 1px solid var(--line); }
+footer p { margin: 0; }
+
+@media (max-width: 36rem) {
+  .top nav { display: none; }
+  #theme { margin-left: auto; }
+  .ticket summary { grid-template-columns: 1fr auto; }
+  .status { grid-column: 1; justify-self: start; }
+  .title { grid-column: 1 / -1; }
+  .when { grid-column: 1 / -1; }
+  .ticket summary::after { grid-column: 2; grid-row: 1; }
+}
+
+@media print {
+  .top, .actions, #toggleAll, .hint { display: none; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .ticket { border-left-color: #999; break-inside: avoid; }
+}
